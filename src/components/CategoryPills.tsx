@@ -1,7 +1,7 @@
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Button from './Button'
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type CategoryPillProps = {
   categories: string[];
@@ -16,7 +16,21 @@ const CategoryPills = ({ categories, selectedCategory, onSelect }: CategoryPillP
   const [isLeftVisible, setIsLeftVisible] = useState(false)
   const [isRightVisible, setIsRightVisible] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
-  console.log(setIsLeftVisible, setIsRightVisible);
+
+  useEffect(() => {
+    if (containerRef.current == null) return
+
+    const observer = new ResizeObserver(entries => {
+      const container = entries[0]?.target
+      if (container === null) return
+      setIsLeftVisible(translate > 0)
+      setIsRightVisible(translate + container.clientWidth < container.scrollWidth)
+    })
+    observer.observe(containerRef.current)
+    return () => {
+      observer.disconnect()
+    }
+  }, [categories, translate])
 
 
   return (
@@ -53,9 +67,13 @@ const CategoryPills = ({ categories, selectedCategory, onSelect }: CategoryPillP
           className='h-full aspect-square w-auto p-1.5'
           onClick={() => {
             setTranslate((translate) => {
-              if (containerRef.current == null) return translate
-              const newTranslate = translate - TRANSLATE_AMOUNT
-              if (newTranslate <= 0) return 0;
+              if (containerRef.current == null) {
+                return translate
+              }
+              const newTranslate = translate + TRANSLATE_AMOUNT
+              const edge = containerRef.current.scrollWidth;
+              const width = containerRef.current.clientWidth;
+              if (newTranslate + width >= edge) return edge - width;
               return newTranslate;
             })
           }}
