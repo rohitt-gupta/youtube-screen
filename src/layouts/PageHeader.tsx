@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import logo from '../assets/Logo.png'
 import { Menu, Mic, Search, ArrowLeft, Upload, Bell, User } from 'lucide-react'
 import Button from '../components/Button'
@@ -20,7 +20,7 @@ const PageHeader = () => {
           <ArrowLeft />
         </Button>}
         <div className='flex flex-grow max-w-[600px] '>
-          <input type="search" placeholder='search' className='rounded-l-full border border-secondary-border shadow-inner shadow-secondary py-1 px-4 text-lg w-full focus:border-blue-500 outline-none ' />
+          <input type="search" placeholder='Search' className='rounded-l-full border border-secondary-border shadow-inner shadow-secondary py-1 px-4 text-lg w-full focus:border-blue-500 outline-none ' />
           <Button className='py-2 px-4 rounded-r-full '>
             <Search />
           </Button>
