@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../assets/Logo.png'
-import { Menu, Upload, Bell, User } from 'lucide-react'
+import { Menu, Mic, Search, ArrowLeft, Upload, Bell, User } from 'lucide-react'
 import Button from '../components/Button'
 
 const PageHeader = () => {
+  const [showFullWidthSearch, setShowFullWidthSearch] = useState(false)
   return (
     <div className='flex justify-between gap-10 lg:gap-20 pt-2 mb-6 mx-4'>
-      <div className='flex gap-4 items-center flex-shrink-0'>
+      <div className={`${showFullWidthSearch ? 'hidden' : 'flex'} flex gap-4 items-center flex-shrink-0`}>
         <Button variant="ghost" size="icon">
           <Menu />
         </Button>
@@ -14,8 +15,27 @@ const PageHeader = () => {
           <img src={logo} alt="logo" className='h-6' />
         </a>
       </div>
-      <div>Right</div>
-      <div className='flex flex-shrink-0 md:gap-2'>
+      <form className={`md:flex gap-4 flex-grow justify-center ${showFullWidthSearch ? 'flex' : 'hidden md:flex'}`}>
+        {showFullWidthSearch && <Button onClick={() => setShowFullWidthSearch(false)} type='button' size="icon" variant="ghost" className='flex-shrink-0'>
+          <ArrowLeft />
+        </Button>}
+        <div className='flex flex-grow max-w-[600px] '>
+          <input type="search" placeholder='search' className='rounded-l-full border border-secondary-border shadow-inner shadow-secondary py-1 px-4 text-lg w-full focus:border-blue-500 outline-none ' />
+          <Button className='py-2 px-4 rounded-r-full '>
+            <Search />
+          </Button>
+        </div>
+        <Button type='button' size="icon" className=' flex-shrink-0'>
+          <Mic />
+        </Button>
+      </form>
+      <div className={`flex-shrink-0 md:gap-2 ${showFullWidthSearch ? 'hidden' : 'flex'}`}>
+        <Button onClick={() => setShowFullWidthSearch(true)} size="icon" variant="ghost" className='md:hidden'>
+          <Search />
+        </Button>
+        <Button size="icon" variant="ghost" className='md:hidden'>
+          <Mic />
+        </Button>
         <Button size="icon" variant="ghost">
           <Upload />
         </Button>
