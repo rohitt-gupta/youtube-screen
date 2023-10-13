@@ -1,11 +1,12 @@
-import './App.css'
+import React from 'react'
+import PageHeader from './layouts/PageHeader'
 
-function App() {
-
+const App = () => {
   return (
-    <h1 className="text-3xl text-red-900 font-bold underline">
-      Hello world!
-    </h1>
+    <div className='max-h-screen flex flex-col'>
+      <PageHeader />
+      <div>2</div>
+    </div>
   )
 }
 
