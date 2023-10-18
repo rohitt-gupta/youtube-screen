@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Works on Firefox */
+* {
+	scrollbar-width: none;
+	scrollbar-color: rgb(134, 134, 134) rgb(134, 134, 134);
+}
+
+*::-webkit-scrollbar {
+  @apply bg-transparent w-2;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply bg-secondary-dark rounded-full;
+}
+
+.scrollbar-hidden::-webkit-scrollbar-thumb {
+  @apply bg-transparent;
+}
+
+.scrollbar-hidden:hover::-webkit-scrollbar-thumb {
+  @apply bg-secondary-border;
+}
